@@ -23,6 +23,7 @@
     "no-restricted-syntax": "off",
     "class-methods-use-this": "off",
     "no-useless-constructor": "off",
+    "max-classes-per-file": "off",
     "@typescript-eslint/no-use-before-define": [
       "error"
     ],
