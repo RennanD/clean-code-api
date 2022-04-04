@@ -12,14 +12,28 @@ type IMakeSut = {
   emailValidator: IEmailValidator;
 };
 
-const makeSut = (): IMakeSut => {
+const makeEmailValidator = (): IEmailValidator => {
   class EmailValidatorStub implements IEmailValidator {
     isValid(email: string): boolean {
       return !!email;
     }
   }
 
-  const emailValidatorStub = new EmailValidatorStub();
+  return new EmailValidatorStub();
+};
+
+const makeEmailValidatorWithError = (): IEmailValidator => {
+  class EmailValidatorStub implements IEmailValidator {
+    isValid(): boolean {
+      throw new Error();
+    }
+  }
+
+  return new EmailValidatorStub();
+};
+
+const makeSut = (): IMakeSut => {
+  const emailValidatorStub = makeEmailValidator();
 
   const sut = new SignUpController(emailValidatorStub);
 
@@ -132,12 +146,6 @@ describe('SignUp Controller', () => {
   });
 
   it('should return 500 if email validator throws', () => {
-    class EmailValidatorStub implements IEmailValidator {
-      isValid(email: string): boolean {
-        throw new Error();
-      }
-    }
-
     const httpRequest = {
       body: {
         name: 'any_name',
@@ -147,7 +155,7 @@ describe('SignUp Controller', () => {
       },
     };
 
-    const emailValidatorStub = new EmailValidatorStub();
+    const emailValidatorStub = makeEmailValidatorWithError();
     const sut = new SignUpController(emailValidatorStub);
 
     const httpResponse = sut.handle(httpRequest);
