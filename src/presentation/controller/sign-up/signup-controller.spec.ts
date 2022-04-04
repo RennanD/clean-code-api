@@ -89,7 +89,7 @@ describe('SignUp Controller', () => {
     );
   });
 
-  it('should return 400 if an invalid email  is provided', () => {
+  it('should return 400 if an invalid email is provided', () => {
     const { sut, emailValidator } = makeSut();
 
     jest.spyOn(emailValidator, 'isValid').mockReturnValueOnce(false);
