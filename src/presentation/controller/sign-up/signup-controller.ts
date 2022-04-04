@@ -4,8 +4,7 @@ import { IController } from '../../protocols/controller';
 import { IHttpRequest, IHttpResponse } from '../../protocols/http';
 import { IEmailValidator } from '../../protocols/email-validator';
 
-import { MissingParamError } from '../../errors/missing-param-error';
-import { InvalidParamError } from '../../errors/invalid-param-error';
+import { MissingParamError, InvalidParamError } from '../../errors';
 
 export class SignUpController implements IController {
   constructor(private readonly emailValidator: IEmailValidator) {}
